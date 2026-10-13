@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09070f" />
+  <meta name="description" content="G7 External — performance tools, clean design, straightforward access." />
+  <title>G7 External — Official Store</title>
+  <style>
+    :root {
+      --bg: #09070f;
+      --panel: #100d1a;
+      --panel2: #171126;
+      --purple: #9b5cff;
+      --purple2: #6f32d9;
+      --lavender: #d7c0ff;
+      --text: #f6f1ff;
+      --muted: #a69bb8;
+      --line: rgba(185, 139, 255, .18);
+      --glow: rgba(139, 72, 255, .25);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      background: radial-gradient(ellipse at 75% 5%, rgba(117, 48, 221, .2), transparent 36%),
+                  radial-gradient(ellipse at 12% 45%, rgba(88, 35, 151, .12), transparent 35%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .announcement {
+      text-align: center; padding: 10px 16px; font-size: 11px; letter-spacing: .16em;
+      text-transform: uppercase; background: linear-gradient(90deg, #4c1da3, #8e4df0, #4c1da3);
+      color: #fff; font-weight: 800;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10; background: rgba(9,7,15,.83);
+      backdrop-filter: blur(18px); border-bottom: 1px solid var(--line);
+    }
+    .nav { max-width: 1160px; margin: auto; padding: 18px 24px; display: flex; align-items: center; gap: 28px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 950; letter-spacing: .08em; font-size: 20px; }
+    .brand-mark {
+      display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px;
+      color: white; font-size: 15px; background: linear-gradient(145deg, #bd91ff, #6825d4);
+      box-shadow: 0 0 28px var(--glow); transform: skew(-5deg);
+    }
+    .brand span:last-child { color: var(--lavender); }
+    .navlinks { display: flex; gap: 26px; margin-left: auto; color: var(--muted); font-size: 13px; font-weight: 650; }
+    .navlinks a:hover { color: white; }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 12px 18px; border-radius: 10px; font-size: 13px; font-weight: 800;
+      border: 1px solid transparent; cursor: pointer; transition: .2s ease;
+    }
+    .nav-cta, .button.primary { background: linear-gradient(135deg, #a56aff, #6b2dd3); color: #fff; box-shadow: 0 8px 28px rgba(112, 49, 211, .22); }
+    .nav-cta:hover, .button.primary:hover { transform: translateY(-2px); filter: brightness(1.12); }
+    .button.secondary { border-color: var(--line); background: rgba(255,255,255,.025); color: #eee4ff; }
+    .button.secondary:hover { background: rgba(155,92,255,.1); border-color: rgba(185,139,255,.42); }
+    .menu-button { display: none; margin-left: auto; background: none; color: white; border: 1px solid var(--line); border-radius: 8px; padding: 8px 11px; }
+    main { max-width: 1160px; margin: auto; padding: 0 24px; }
+    .hero { min-height: 600px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 36px; padding: 75px 0 82px; }
+    .eyebrow { color: #c4a2ff; text-transform: uppercase; letter-spacing: .22em; font-size: 11px; font-weight: 850; display: flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ""; width: 25px; height: 1px; background: var(--purple); }
+    h1 { margin: 20px 0 20px; font-size: clamp(48px, 6.4vw, 78px); line-height: .99; letter-spacing: -.065em; font-weight: 950; }
+    h1 .gradient { background: linear-gradient(100deg, #fff 10%, #c9a7ff 52%, #8b4cff 100%); color: transparent; background-clip: text; }
+    .hero p { color: var(--muted); line-height: 1.8; font-size: 16px; max-width: 520px; margin: 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .trustline { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; color: #b8accb; font-size: 11px; }
+    .trustline span { display: flex; align-items: center; gap: 7px; }
+    .check { color: #bda0ff; font-weight: 900; }
+    .hero-art { position: relative; min-height: 390px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: 340px; height: 340px; border: 1px solid rgba(167,111,255,.23); border-radius: 50%; box-shadow: 0 0 70px rgba(111,50,217,.13), inset 0 0 70px rgba(111,50,217,.08); }
+    .orbit::before, .orbit::after { content: ""; position: absolute; inset: 28px; border: 1px dashed rgba(167,111,255,.2); border-radius: 50%; }
+    .orbit::after { inset: 65px; border-style: solid; opacity: .7; }
+    .g7-emblem {
+      width: 250px; height: 250px; border-radius: 34px; display: grid; place-items: center; position: relative;
+      background: linear-gradient(145deg, rgba(153,94,255,.22), rgba(25,14,42,.9) 55%, rgba(95,38,181,.2));
+      border: 1px solid rgba(194,153,255,.45); box-shadow: 0 25px 90px rgba(93,39,176,.32), inset 0 0 40px rgba(179,129,255,.08);
+      transform: rotate(-7deg);
+    }
+    .g7-emblem::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(197,161,255,.17); border-radius: 25px; }
+    .g7-emblem strong { font-size: 100px; line-height: 1; font-weight: 1000; letter-spacing: -.1em; text-shadow: 0 0 42px rgba(179,129,255,.55); transform: rotate(7deg); }
+    .float-tag { position: absolute; border: 1px solid var(--line); background: rgba(17,12,29,.9); backdrop-filter: blur(12px); padding: 13px 16px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,.25); }
+    .float-tag b { display: block; font-size: 12px; margin-bottom: 4px; }
+    .float-tag small { color: var(--muted); font-size: 10px; }
+    .tag-top { top: 42px; right: 0; } .tag-bottom { bottom: 42px; left: 0; }
+    .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #b794ff; margin-right: 6px; box-shadow: 0 0 10px #a36aff; }
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--line); background: rgba(255,255,255,.018); border-radius: 16px; overflow: hidden; margin-bottom: 92px; }
+    .stat { padding: 25px; text-align: center; border-right: 1px solid var(--line); }
+    .stat:last-child { border: 0; } .stat strong { display: block; font-size: 24px; letter-spacing: -.04em; } .stat span { color: var(--muted); font-size: 11px; margin-top: 7px; display: block; }
+    section { padding: 24px 0 92px; scroll-margin-top: 100px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .section-head h2 { margin: 12px 0 0; font-size: clamp(30px, 4vw, 43px); letter-spacing: -.055em; }
+    .section-head p { color: var(--muted); max-width: 390px; line-height: 1.65; font-size: 13px; margin: 0; }
+    .products { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .product-card { border: 1px solid var(--line); border-radius: 17px; overflow: hidden; background: linear-gradient(180deg, rgba(25,17,41,.85), rgba(13,10,21,.96)); transition: .22s ease; }
+    .product-card:hover { transform: translateY(-5px); border-color: rgba(173,126,255,.5); box-shadow: 0 20px 50px rgba(0,0,0,.24); }
+    .product-visual { height: 170px; display: grid; place-items: center; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(130,69,222,.28), transparent 56%), #110b1c; border-bottom: 1px solid var(--line); }
+    .product-visual::before { content: ""; position: absolute; width: 170px; height: 170px; border: 1px solid rgba(172,124,255,.19); border-radius: 50%; }
+    .product-visual::after { content: ""; position: absolute; width: 120px; height: 120px; border: 1px dashed rgba(172,124,255,.2); border-radius: 50%; }
+    .product-icon { z-index: 1; font-size: 42px; font-weight: 950; color: #d8c3ff; text-shadow: 0 0 32px rgba(157,96,255,.7); }
+    .product-content { padding: 21px; }
+    .product-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .product-top h3 { margin: 0; font-size: 17px; letter-spacing: -.025em; }
+    .pill { font-size: 9px; text-transform: uppercase; letter-spacing: .1em; color: #d7c0ff; background: rgba(155,92,255,.12); border: 1px solid rgba(155,92,255,.25); padding: 6px 8px; border-radius: 6px; white-space: nowrap; }
+    .product-content p { color: var(--muted); line-height: 1.65; font-size: 12px; min-height: 40px; margin: 13px 0 20px; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .price { font-size: 19px; font-weight: 900; } .price small { display: block; font-size: 10px; color: var(--muted); font-weight: 500; margin-top: 3px; }
+    .product-bottom .button { padding: 10px 12px; font-size: 11px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .feature { padding: 25px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.018); }
+    .feature-icon { width: 39px; height: 39px; display: grid; place-items: center; border: 1px solid rgba(155,92,255,.3); background: rgba(155,92,255,.12); color: #d7c0ff; border-radius: 11px; font-size: 18px; }
+    .feature h3 { margin: 19px 0 9px; font-size: 15px; } .feature p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+    .faq-wrap { display: grid; grid-template-columns: .75fr 1.25fr; gap: 45px; }
+    .faq-wrap h2 { font-size: 40px; line-height: 1.05; letter-spacing: -.055em; margin: 12px 0; }
+    .faq-wrap > div:first-child p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+    summary { cursor: pointer; font-size: 14px; font-weight: 750; list-style: none; display: flex; justify-content: space-between; gap: 20px; }
+    summary::-webkit-details-marker { display: none; } summary::after { content: "+"; color: #c7a8ff; font-size: 20px; line-height: 14px; } details[open] summary::after { content: "−"; }
+    details p { color: var(--muted); font-size: 12px; line-height: 1.8; margin: 13px 24px 0 0; }
+    .cta-band { padding: 44px; border: 1px solid rgba(176,126,255,.28); border-radius: 20px; background: radial-gradient(ellipse at 80% 20%, rgba(126,60,221,.24), transparent 50%), linear-gradient(110deg, #171025, #100b19); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .cta-band h2 { font-size: clamp(28px,4vw,40px); letter-spacing: -.055em; margin: 0 0 9px; } .cta-band p { color: var(--muted); font-size: 13px; margin: 0; }
+    footer { border-top: 1px solid var(--line); padding: 28px 24px; color: var(--muted); font-size: 11px; }
+    .footer-inner { max-width: 1160px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-links { display: flex; gap: 20px; } .footer-links a:hover { color: white; }
+    .notice { margin-top: 12px; font-size: 10px; opacity: .7; line-height: 1.6; }
+    @media (max-width: 820px) {
+      .nav { gap: 15px; } .navlinks { gap: 14px; } .nav-cta { display: none; }
+      .hero { grid-template-columns: 1fr; padding-top: 60px; gap: 10px; } .hero-art { min-height: 350px; }
+      .products, .feature-grid { grid-template-columns: repeat(2,1fr); }
+      .section-head { align-items: start; flex-direction: column; }
+      .faq-wrap { grid-template-columns: 1fr; gap: 15px; }
+    }
+    @media (max-width: 560px) {
+      .announcement { font-size: 9px; letter-spacing: .1em; }
+      .nav { padding: 13px 18px; } .brand { font-size: 17px; }
+      .menu-button { display: block; }
+      .navlinks { display: none; position: absolute; left: 12px; right: 12px; top: 64px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #100c19; flex-direction: column; }
+      .navlinks.open { display: flex; }
+      main { padding: 0 18px; } .hero { min-height: 0; padding: 56px 0 45px; }
+      h1 { font-size: 53px; } .hero p { font-size: 14px; }
+      .hero-art { min-height: 300px; } .orbit { width: 270px; height: 270px; } .g7-emblem { width: 190px; height: 190px; border-radius: 26px; } .g7-emblem strong { font-size: 77px; }
+      .tag-top { right: -3px; top: 18px; } .tag-bottom { left: -3px; bottom: 16px; }
+      .stats { margin-bottom: 65px; } .stat { padding: 17px 8px; } .stat strong { font-size: 19px; } .stat span { font-size: 9px; }
+      section { padding-bottom: 68px; } .products, .feature-grid { grid-template-columns: 1fr; }
+      .product-visual { height: 155px; } .product-content p { min-height: 0; }
+      .cta-band { padding: 27px; align-items: flex-start; flex-direction: column; }
+      .footer-inner { align-items: flex-start; flex-direction: column; } .footer-links { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">G7 EXTERNAL · OFFICIAL STORE · BUILT FOR PERFORMANCE</div>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="G7 External home"><span class="brand-mark">G7</span><span>G7 <span>EXTERNAL</span></span></a>
+      <div class="navlinks" id="navlinks">
+        <a href="#products">Products</a><a href="#features">Why G7</a><a href="#faq">FAQ</a><a href="#support">Support</a>
+      </div>
+      <a class="nav-cta" href="#products">Explore products <span>↗</span></a>
+      <button class="menu-button" id="menuButton" aria-label="Toggle navigation">☰</button>
+    </nav>
+  </header>
+
+  <main id="home">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">The next level starts here</div>
+        <h1>MOVE<br>DIFFERENT.<br><span class="gradient">CHOOSE G7.</span></h1>
+        <p>A sleek, streamlined hub for G7 External. Explore available options, find the right fit, and get help when you need it — all in one place.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#products">Browse products <span>→</span></a>
+          <a class="button secondary" href="#support">Get support <span>↗</span></a>
+        </div>
+        <div class="trustline"><span><b class="check">✦</b> Clean, simple experience</span><span><b class="check">✦</b> Quick access to support</span></div>
+      </div>
+      <div class="hero-art" aria-label="G7 logo artwork">
+        <div class="orbit"></div>
+        <div class="g7-emblem"><strong>G7</strong></div>
+        <div class="float-tag tag-top"><b><i class="status-dot"></i> G7 SYSTEM</b><small>Designed around you</small></div>
+        <div class="float-tag tag-bottom"><b>PRECISION IN EVERY DETAIL</b><small>Purple by design. G7 by nature.</small></div>
+      </div>
+    </div>
+
+    <div class="stats" aria-label="Store highlights">
+      <div class="stat"><strong>G7</strong><span>One central hub</span></div>
+      <div class="stat"><strong>24/7</strong><span>Browse anytime</span></div>
+      <div class="stat"><strong>01</strong><span>Simple experience</span></div>
+    </div>
+
+    <section id="products">
+      <div class="section-head">
+        <div><div class="eyebrow">Find your setup</div><h2>Explore G7 products</h2></div>
+        <p>Choose a category to learn more. Product names, pricing, and checkout destinations below are placeholders you can customize before launch.</p>
+      </div>
+      <div class="products">
+        <article class="product-card">
+          <div class="product-visual"><div class="product-icon">G7</div></div>
+          <div class="product-content">
+            <div class="product-top"><h3>G7 1 Month Plan</h3><span class="pill">Featured</span></div>
+            <p>Your main G7 product listing. Add the final feature list and supported platform details here.</p>
+            <div class="product-bottom"><div class="price">$25<small>G7 1 Month Plan</small></div><button class="button primary" type="button" onclick="alert('G7 1 Month Plan — $25')">Learn more ↗</button></div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-visual"><div class="product-icon">G7+</div></div>
+          <div class="product-content">
+            <div class="product-top"><h3>G7 3 Month Plan</h3><span class="pill">Premium</span></div>
+            <p>A premium-tier listing for expanded features, bundles, or an upgraded membership.</p>
+            <div class="product-bottom"><div class="price">$70<small>G7 3 Month Plan</small></div><a class="button secondary" href="#support">View details ↗</a></div>
+          </div>
+        </article>
+        <article class="product-card">
+          <div class="product-visual"><div class="product-icon">✦</div></div>
+          <div class="product-content">
+            <div class="product-top"><h3>G7 LifeTime Plan</h3><span class="pill">Lifetime</span></div>
+            <p>A place for access plans, setup assistance, or other services offered by your team.</p>
+            <div class="product-bottom"><div class="price">$95<small>G7 LifeTime Plan</small></div><a class="button secondary" href="#support">Get updates ↗</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <div><div class="eyebrow">The G7 difference</div><h2>Built to feel effortless.</h2></div>
+        <p>A focused storefront experience with the essentials easy to find and no clutter between visitors and the information they need.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature"><div class="feature-icon">◈</div><h3>Clear product details</h3><p>Present plan information, requirements, and key details in a consistent, easy-to-scan layout.</p></article>
+        <article class="feature"><div class="feature-icon">⚡</div><h3>Fast, responsive design</h3><p>A responsive layout designed to look sharp on desktops, tablets, and mobile screens.</p></article>
+        <article class="feature"><div class="feature-icon">✧</div><h3>Help when you need it</h3><p>Make it simple for customers to find your community, support team, and important updates.</p></article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="faq-wrap">
+        <div><div class="eyebrow">Need to know</div><h2>Frequently asked questions.</h2><p>Replace these starter answers with your official product, purchase, and support policies before publishing.</p></div>
+        <div>
+          <details open><summary>How do I get started with G7?</summary><p>Check the product listings for current availability. When your official product and checkout links are ready, connect them to the product buttons on this page.</p></details>
+          <details><summary>Where can I get support?</summary><p>Use the support link below to connect your official Discord server, ticket system, or contact page.</p></details>
+          <details><summary>Are purchases or subscriptions available now?</summary><p>This starter template does not process payments. Add your real prices, terms, and trusted checkout provider before accepting orders.</p></details>
+          <details><summary>Where can I find updates?</summary><p>Add your official community or announcements link in the Support section and keep this page updated when products or policies change.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="support">
+      <div class="cta-band">
+        <div><h2>Need a hand?</h2><p>Connect with the G7 team for product questions, setup guidance, and announcements.</p></div>
+        <!-- Replace # with your official Discord, ticket, or support URL -->
+        <a class="button primary" href="https://discord.gg/AZRpnh5Zug" target="_blank" rel="noopener noreferrer">Join the community ↗</a>
+      </div>
+      <p class="notice">Before publishing: replace the placeholder product details and connect this button to your official G7 community. This template is a front-end storefront only and does not include payment processing or account systems.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="brand" href="#home"><span class="brand-mark">G7</span><span>G7 <span>EXTERNAL</span></span></a>
+      <div>© <span id="year"></span> G7 External. All rights reserved.</div>
+      <div class="footer-links"><a href="#products">Products</a><a href="#faq">FAQ</a><a href="#support">Support</a></div>
+    </div>
+  </footer>
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navlinks = document.getElementById('navlinks');
+    menuButton.addEventListener('click', () => navlinks.classList.toggle('open'));
+    navlinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navlinks.classList.remove('open')));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
